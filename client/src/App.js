@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import './App.css'
+import { Switch, Route } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
-
+import AuthServices from './services/auth.services.js'
+import Login from './components/auth/Login'
+import Signup from './components/auth/Signup'
+import Video from './components/Video'
 
 
 
@@ -10,10 +14,22 @@ import Navbar from './components/Navbar'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      showMenu: false
-    }
+    this.state = { showMenu: false }
+    this.AuthServices = new AuthServices()
 
+  }
+
+  setTheUser = user => {
+    this.setState({ loggedInUser: user })
+    console.log("Un componente ha cambiado el usuario en App:", this.state.loggedInUser)
+  }
+
+  fetchUser = () => {
+    if (this.state.loggedInUser === null) {
+      this.authServices.loggedin()
+        .then(response => this.setState({ loggedInUser: response }))
+        .catch(x => this.setState({ loggedInUser: false }))
+    }
   }
 
   // En vez de hacer setState y cambiarle el valor por el opuesto directamente, he usado el modo función de setState, le
@@ -27,20 +43,32 @@ class App extends Component {
     })
   }
 
+  setTheUser = user => {
+    this.setState({ loggedInUser: user })
+    console.log("Un componente ha cambiado el usuario en App:", this.state.loggedInUser)
+  }
+
+  fetchUser = () => {
+    if (this.state.loggedInUser === null) {
+      this.AuthServices.loggedin()
+        .then(response => this.setState({ loggedInUser: response }))
+        .catch(x => this.setState({ loggedInUser: false }))
+    }
+  }
+
   render() {
 
-
+    this.fetchUser()
 
     return (
       <>
-        <Navbar toggleClickMenu={this.toggleClickMenu} />
-        <div className='video-header'>
+        <Navbar setUser={this.setTheUser} toggleClickMenu={this.toggleClickMenu} />
 
-          <video loop muted autoPlay poster='./liquid-poster.png' className="vid">
-            <source src={require('./slowmotion-liquid.mp4')} type='video/mp4' />
-            <source src={require('./slowmotion-liquid.webm')} type='video/webm' />
-          </video>
-        </div>
+        <Switch>
+          <Route exact path="/" component={Video} />
+          <Route exact path="/login" render={match => <Login {...match} setUser={this.setTheUser} />} />
+          <Route exact path="/signup" render={match => <Signup {...match} setUser={this.setTheUser} />} />
+        </Switch>
 
 
 

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import '../App.css'
 import logo from '../liquid-logo.png'
 import menu from '../hamburguer-menu-40.svg'
+import AuthServices from '../services/auth.services'
 
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props)
+    constructor(props) {
+      super(props)
+      this.AuthServices = new AuthServices()
 
   }
   componentDidMount() {
@@ -17,32 +20,39 @@ class Navbar extends Component {
     }
   }
 
+ logout = () => {
+        this.AuthServices.logout()
+            .then(x => {
+                this.props.setUser(null)
+            })
+            .catch(err => console.log(err))
+    }
 
   render() {
 
     return (
       <header className="header-menu">
         <button onClick={this.props.toggleClickMenu} className="toggle-menu"><img src={menu} alt='hamburguer-menu' /></button>
-        <a href="#">
+        <Link to="/">
           <img src={logo} alt='liquid-logo' />
-        </a>
+        </Link>
 
         <nav>
           <ul>
             <li>
-              <a href="#">Inicio</a>
+              <Link to="/">Inicio</Link>
             </li>
             <li>
-              <a href="#">Tu Perfil</a>
+              <a href="#">Tus Finanzas</a>
             </li>
             <li>
-              <a href="#">Registro</a>
+              <Link to="/signup">Registro</Link>
             </li>
             <li>
-              <a href="#">Login</a>
+              <Link to="/login">Login</Link>
             </li>
             <li>
-              <a href="#">Contacto</a>
+              <div onClick={this.logout}>Cerrar Sesión</div>
             </li>
           </ul>
         </nav>

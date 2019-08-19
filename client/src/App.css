@@ -121,3 +121,39 @@ nav li{
   }
 }
 
+
+/* FORMULARIO LOGIN Y REGISTRO */
+
+.auth-title{
+ color: #53c8fa;
+}
+                        
+.auth-form-signup{
+  margin-top:10%;
+  margin-left: 10%;
+  width: 60vw;
+  display: flex;
+  align-self: center;
+  justify-content: flex-start
+}
+
+.auth-form-login{
+  margin-top:10%;
+  margin-right: 10%;
+  width: 60vw;
+  display: flex;
+  align-self: center;
+  justify-content: flex-end;
+
+}
+
+@media (max-width: 760px) {
+ main{
+   margin-top: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+}
+}
