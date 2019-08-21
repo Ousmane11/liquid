@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import './App.css'
 import { Switch, Route } from 'react-router-dom'
@@ -7,29 +8,20 @@ import AuthServices from './services/auth.services.js'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Video from './components/Video'
+import Finances from './components/auth/Finances'
 
-
+import ProtectedRoute from './components/auth/routes/ProtectedRoute'
 
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { showMenu: false }
+    this.state = {
+      showMenu: false,
+      loggedInUser: null
+    }
     this.AuthServices = new AuthServices()
 
-  }
-
-  setTheUser = user => {
-    this.setState({ loggedInUser: user })
-    console.log("Un componente ha cambiado el usuario en App:", this.state.loggedInUser)
-  }
-
-  fetchUser = () => {
-    if (this.state.loggedInUser === null) {
-      this.authServices.loggedin()
-        .then(response => this.setState({ loggedInUser: response }))
-        .catch(x => this.setState({ loggedInUser: false }))
-    }
   }
 
   // En vez de hacer setState y cambiarle el valor por el opuesto directamente, he usado el modo función de setState, le
@@ -59,21 +51,31 @@ class App extends Component {
   render() {
 
     this.fetchUser()
+    if (this.state.loggedInUser) {
+      return (
+        <>
+          <Navbar setUser={this.setTheUser} toggleClickMenu={this.toggleClickMenu} userInSession={this.state.loggedInUser} />
 
-    return (
-      <>
-        <Navbar setUser={this.setTheUser} toggleClickMenu={this.toggleClickMenu} />
+          <Switch>
+            <Route exact path="/" component={Video} />
+            <ProtectedRoute path="/finances" user={this.state.loggedInUser} component={Finances} />
+          </Switch>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <Navbar setUser={this.setTheUser} toggleClickMenu={this.toggleClickMenu} />
 
-        <Switch>
-          <Route exact path="/" component={Video} />
-          <Route exact path="/login" render={match => <Login {...match} setUser={this.setTheUser} />} />
-          <Route exact path="/signup" render={match => <Signup {...match} setUser={this.setTheUser} />} />
-        </Switch>
+          <Switch>
+            <Route exact path="/" component={Video} />
+            <Route exact path="/login" render={match => <Login {...match} setUser={this.setTheUser} />} />
+            <Route exact path="/signup" render={match => <Signup {...match} setUser={this.setTheUser} />} />
+          </Switch>
+        </>
+      )
 
-
-
-      </>
-    )
+    }
   }
 }
 

@@ -7,9 +7,9 @@ import AuthServices from '../services/auth.services'
 
 
 class Navbar extends Component {
-    constructor(props) {
-      super(props)
-      this.AuthServices = new AuthServices()
+  constructor(props) {
+    super(props)
+    this.AuthServices = new AuthServices()
 
   }
   componentDidMount() {
@@ -20,45 +20,71 @@ class Navbar extends Component {
     }
   }
 
- logout = () => {
-        this.AuthServices.logout()
-            .then(x => {
-                this.props.setUser(null)
-            })
-            .catch(err => console.log(err))
-    }
+  logout = () => {
+    this.AuthServices.logout()
+      .then(x => {
+        this.props.setUser(null)
+      })
+      .catch(err => console.log(err))
+  }
 
   render() {
+    if (this.props.userInSession) {
+      return (
+        <header className="header-menu">
+          <button className='nav-button toggle-menu' onClick={this.props.toggleClickMenu}><img src={menu} alt='hamburguer-menu' /></button>
+          <Link to="/">
+            <img src={logo} alt='liquid-logo' />
+          </Link>
 
-    return (
-      <header className="header-menu">
-        <button onClick={this.props.toggleClickMenu} className="toggle-menu"><img src={menu} alt='hamburguer-menu' /></button>
-        <Link to="/">
-          <img src={logo} alt='liquid-logo' />
-        </Link>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Inicio</Link>
+              </li>
+              <li>
+                <Link to="/finances">Tus Finanzas</Link>
+              </li>
+              <li>
+                <button className='nav-button' onClick={this.logout}>Cerrar Sesión</button>
+              </li>
+              <li>
+                <small>Bienvenid@, {this.props.userInSession.data.username}</small>
+              </li>
+            </ul>
+          </nav>
 
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Inicio</Link>
-            </li>
-            <li>
-              <a href="#">Tus Finanzas</a>
-            </li>
-            <li>
-              <Link to="/signup">Registro</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <div onClick={this.logout}>Cerrar Sesión</div>
-            </li>
-          </ul>
-        </nav>
+        </header>
+      )
 
-      </header>
-    )
+    } else {
+      return (
+        <header className="header-menu">
+          <button className='nav-button toggle-menu' onClick={this.props.toggleClickMenu} ><img src={menu} alt='hamburguer-menu' /></button>
+          <Link to="/">
+            <img src={logo} alt='liquid-logo' />
+          </Link>
+
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Inicio</Link>
+              </li>
+              <li>
+                <Link to="/signup">Registro</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <small>Bienvenido, invitado</small>
+              </li>
+            </ul>
+          </nav>
+
+        </header>
+      )
+    }
   }
 
 }

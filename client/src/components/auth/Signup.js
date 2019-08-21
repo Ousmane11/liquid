@@ -28,7 +28,7 @@ class Signup extends Component {
           password: ''
         })
         this.props.setUser(theNewUser)
-        this.props.history.push('/auth/signup')
+        this.props.history.push('/')
       })
       .catch(err => console.log(err.response.data.message))
   }
@@ -39,7 +39,7 @@ class Signup extends Component {
     return (
       <main>
         <h1 className='auth-title'>Registro</h1>
-        <div className='auth-form-signup'>
+        <div className='auth-form'>
 
           <form onSubmit={this.handleFormSubmit}>
             <div className="form-group">

@@ -10,12 +10,12 @@ const path = require('path')
 const session = require('express-session')
 const passport = require('passport')
 const cors = require('cors')
-
-
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose')
+const flash = require("connect-flash");
 
 require('./configs/mongoose.config')
 require('./configs/passport.config')
-require('./configs/plaid.config')
 
 
 const app_name = require('./package.json').name
@@ -29,18 +29,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-// ADD SESSION SETTINGS HERE:  
-// CheCK THIS outerHeight, USS
-app.use(session({
-  secret: "some secret goes here",
-  resave: true,
-  saveUninitialized: true
-}))
 
-// USE passport.initialize() and passport.session() HERE:
-// CheCK THIS outerHeight, USS
-app.use(passport.initialize())
-app.use(passport.session())
+
 
 // Express View engine setup
 
@@ -61,6 +51,20 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
+// // Configuración de sesión
+
+app.use(session({
+  secret: 'Whatever',
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
+app.use(flash())
+
+// USE passport.initialize() and passport.session() HERE:
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
@@ -70,14 +74,15 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')))
 
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator'
+app.locals.title = 'Liquid'
 
 
 // ///// ENRUTADOS BASE  ////////
 
 const index = require('./routes/index')
-app.use('/', index)
+app.use('/api', index)
 const authRoutes = require('./routes/auth/authRoutes')
-app.use('/auth', authRoutes)
+app.use('/api/auth', authRoutes)
+
 
 module.exports = app

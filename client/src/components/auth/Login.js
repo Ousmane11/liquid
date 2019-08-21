@@ -28,7 +28,7 @@ class Login extends Component {
           password: ''
         })
         this.props.setUser(theLoggedUser)
-        this.props.history.push('/coasters')
+        this.props.history.push('/')
       })
       .catch(err => console.log(err.response.data.message))
   }
@@ -38,7 +38,7 @@ class Login extends Component {
     return (
       <main>
         <h1 className='auth-title'>Inicio de sesión</h1>
-        <div className='auth-form-login'>
+        <div className='auth-form'>
 
           <form onSubmit={this.handleFormSubmit}>
             <div className="form-group">
