@@ -9,8 +9,11 @@ import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Video from './components/Video'
 import Finances from './components/auth/Finances'
-
+import ForexExchange from './components/auth/statPages/ForexExRates'
+import ForexIntraday from './components/auth/statPages/ForexIntraday'
 import ProtectedRoute from './components/auth/routes/ProtectedRoute'
+import StockDaily from './components/auth/statPages/StockTsDaily'
+import SectorsPerformance from './components/auth/statPages/SectorPerformance'
 
 
 class App extends Component {
@@ -58,7 +61,11 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/" component={Video} />
-            <ProtectedRoute path="/finances" user={this.state.loggedInUser} component={Finances} />
+            <ProtectedRoute exact path="/finances" user={this.state.loggedInUser} component={Finances} />
+            <ProtectedRoute exact path="/finances/forexrates" user={this.state.loggedInUser} component={ForexExchange} />
+            <ProtectedRoute exact path="/finances/forexintraday" user={this.state.loggedInUser} component={ForexIntraday} />
+            <ProtectedRoute exact path="/finances/stocktimeseries" user={this.state.loggedInUser} component={StockDaily} />
+            <ProtectedRoute exact path="/finances/sectors" user={this.state.loggedInUser} component={SectorsPerformance} />
           </Switch>
         </>
       )

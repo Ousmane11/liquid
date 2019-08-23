@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Services from '../../services/alpha.services'
+import { Link } from 'react-router-dom'
 
 class Finances extends Component {
   constructor() {
@@ -37,30 +38,32 @@ class Finances extends Component {
     return (
 
       <div className='finances-page'>
-        <h1>Mercados</h1>
+
         <div className="tetra-box">
 
 
           <div className="column">
             <h4>Sector Performance</h4>
-            <p>sdjnbevbadkjfvbakejverkvbdfvbvbfvbd</p>
-            <button className="btn btn-outline-info">Sector Perf</button>
+            <p> realtime and historical sector performances calculated from S&P500 incumbents</p>
+            <Link to="/finances/sectors"><button className="btn btn-outline-info">Get Performance</button></Link>
           </div>
           <div className="column">
             <h4>Stock Time Series Daily</h4>
             <p>sdjnbevbadkjfvbakejverkvbdfvbvbfvbd</p>
-            <button className="btn btn-outline-info">Exchange Rate</button>
+            <Link to="/finances/stocktimeseries"><button className="btn btn-outline-info">Get stock series</button></Link>
           </div>
 
           <div className="column">
             <h4>Forex Exchange Rates</h4>
-            <p>sdjnbevbadkjfvbakejverkvbdfvbvbfvb</p>
-            <button className="btn btn-outline-info">Forex Intraday</button>
+            <p>Realtime exchange rate for any pair of digital currency <br></br>(e.g., Bitcoin) and physical currency</p>
+            <Link to="/finances/forexrates"><button className="btn btn-outline-info">Get Exchange Rates</button></Link>
           </div>
           <div className="column">
             <h4>Forex Intraday</h4>
-            <p>sdjnbevbadkjfvbakejverkvbdfvbvbfvbd</p>
-            <button className="btn btn-outline-info">Stock Time series</button>
+            <p>Conversion rate from one currency to other<br></br>
+              of your choice.</p>
+
+            <Link to="/finances/forexintraday"><button className="btn btn-outline-info">Get Intraday</button></Link>
           </div>
 
         </div>

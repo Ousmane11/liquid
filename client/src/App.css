@@ -183,12 +183,14 @@ overflow: hidden;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: flex-start;
+  margin-top: 2%; 
+  max-height: 100%;
 }
 .column{
   width:35%;
-  height: 35%;
+  height: 50%;
   margin-top: 1%;
-  padding:5%;
+  padding:4%;
   background-color: white;
   overflow: hidden; 
   text-overflow: ellipsis;
@@ -200,3 +202,12 @@ overflow: hidden;
 .finances-page h1{
   text-align: center;
 }
+
+/* ///////////////////////////// CHARTS /////////////////// */
+.chart-container{
+  padding-top:5%;
+  margin-left: 10%;
+width:70vw;
+height:60vh;
+}
+
