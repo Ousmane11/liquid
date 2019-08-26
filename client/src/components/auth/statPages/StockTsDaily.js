@@ -13,14 +13,22 @@ class StockDaily extends Component {
     this.state = { stockTimeSeriesDaily: [] }
   }
 
-  componentDidMount() {
-    this.services.getStockTimeSeriesDaily()
+  handleInputChange = e => {
+    let { name, value } = e.target
+    this.setState({
+      [name]: value
+    })
+  }
+
+  handleFormSubmit = e => {
+    e.preventDefault()
+    this.services.getStockTimeSeriesDaily(this.state.company)
       .then(response => this.setState({ stockTimeSeriesDaily: response.data }, () => {
 
         const data = this.state.stockTimeSeriesDaily["Time Series (Daily)"]
         //console.log(data)
         //console.log(Object.keys(data))
-        const dates = Object.keys(data)
+        const date = Object.keys(data)
 
         // console.log(Object.values(data))
         let stocksdata = Object.values(data)
@@ -33,7 +41,7 @@ class StockDaily extends Component {
             close: elm["4. close"]
             // volume: elm["5. volume"]
           }
-          return elm = { date: dates[idx], ...elm }
+          return elm = { date: date[idx], ...elm }
         })
         stocksdata = stocksdata.reverse()
         console.log(stocksdata)
@@ -46,7 +54,7 @@ class StockDaily extends Component {
           //Creating chart instance
           let chart = am4core.create("myChart", am4charts.XYChart);
           chart.paddingRight = 20;
-
+          chart.responsive.enabled = true;
           chart.dateFormatter.inputDateFormat = "yyyy-MM-dd HH:mm:ss"
 
           let dateAxis = chart.xAxes.push(new am4charts.DateAxis())
@@ -86,10 +94,13 @@ class StockDaily extends Component {
           chart.data = this.state.stockTimeSeriesDaily
           console.log(chart.data)
 
+
         })
+
       }))
       .catch(err => console.log(err))
   }
+
 
   componentWillUnmount() {
     if (this.chart) {
@@ -97,10 +108,24 @@ class StockDaily extends Component {
     }
   }
 
+
+
   render() {
 
     return (
+
       <div className='chart-container'>
+        <form onSubmit={this.handleFormSubmit}>
+          <select name='company' onChange={this.handleInputChange}>
+            <option></option>
+            <option value='TSLA'>Tesla</option>
+            <option value='GOOGL'>Google</option>
+            <option value='FB'>Facebook</option>
+            <option value='BBVA'>BBVA</option>
+            <option value='AMZN'>Amazon</option>
+          </select>
+          <button className='btn btn-outline-info'>Show chart</button>
+        </form>
         <div id='myChart' style={{ width: "100%", height: "500px" }}>
 
         </div>

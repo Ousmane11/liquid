@@ -6,31 +6,10 @@ class Finances extends Component {
   constructor() {
     super()
     this.services = new Services()
-    this.state = {
-      sectorsPerformance: [],
-      exchangeRate: [],
-      forexIntraday: [],
-      stockTimeSeriesDaily: []
-    }
+
+
   }
 
-
-
-
-  componentDidMount() {
-    this.services.getSectorPerformance()
-      .then(response => this.setState({ sectorsPerformance: response.data }))
-      .catch(err => console.log(err))
-    this.services.getExchangeRate()
-      .then(response => this.setState({ exchangeRate: response.data }))
-      .catch(err => console.log(err))
-    this.services.getForexIntraday()
-      .then(response => this.setState({ forexIntraday: response.data }))
-      .catch(err => console.log(err))
-    this.services.getStockTimeSeriesDaily()
-      .then(response => this.setState({ stockTimeSeriesDaily: response.data }))
-      .catch(err => console.log(err))
-  }
 
 
   render() {
@@ -44,12 +23,12 @@ class Finances extends Component {
 
           <div className="column">
             <h4>Sector Performance</h4>
-            <p> realtime and historical sector performances calculated from S&P500 incumbents</p>
+            <p> Realtime and historical sector performances calculated<br></br> from S&P500 incumbents</p>
             <Link to="/finances/sectors"><button className="btn btn-outline-info">Get Performance</button></Link>
           </div>
           <div className="column">
             <h4>Stock Time Series Daily</h4>
-            <p>sdjnbevbadkjfvbakejverkvbdfvbvbfvbd</p>
+            <p>Daily time series of the global equity specified for<br></br> the last 6 months</p>
             <Link to="/finances/stocktimeseries"><button className="btn btn-outline-info">Get stock series</button></Link>
           </div>
 

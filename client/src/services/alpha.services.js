@@ -8,9 +8,11 @@ export default class Finances {
 
   }
   getSectorPerformance = () => this.service.get(`query?function=SECTOR&apikey=${process.env.APIKEY}`)
-  getExchangeRate = () => this.service.get(`query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=${process.env.APIKEY}`)
-  getForexIntraday = () => this.service.get(`query?function=FX_INTRADAY&from_symbol=EUR&to_symbol=USD&interval=30min&apikey=${process.env.APIKEY}`)
-  getStockTimeSeriesDaily = () => this.service.get(`query?function=TIME_SERIES_DAILY&symbol=TSLA&apikey=${process.env.APIKEY}`)
+  getExchangeRate = (first, second) => this.service.get(`query?function=CURRENCY_EXCHANGE_RATE&from_currency=${first}&to_currency=${second}&apikey=${process.env.APIKEY}`)
+  getForexIntraday = (first, second) => this.service.get(`query?function=FX_INTRADAY&from_symbol=${first}&to_symbol=${second}&interval=30min&apikey=${process.env.APIKEY}`)
+  getStockTimeSeriesDaily = company => this.service.get(`query?function=TIME_SERIES_DAILY&symbol=${company}&apikey=${process.env.APIKEY}`)
+
+
 }
 
 

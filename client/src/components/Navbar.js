@@ -40,16 +40,16 @@ class Navbar extends Component {
           <nav>
             <ul>
               <li>
-                <Link to="/">Inicio</Link>
+                <Link to="/">Main</Link>
               </li>
               <li>
-                <Link to="/finances">Tus Finanzas</Link>
+                <Link to="/finances">Finance boards</Link>
               </li>
               <li>
-                <button className='nav-button' onClick={this.logout}>Cerrar Sesión</button>
+                <button className='nav-button' onClick={this.logout}>Logout</button>
               </li>
               <li>
-                <small>Bienvenid@, {this.props.userInSession.data.username}</small>
+                <small>Good to see you here, {this.props.userInSession.data.username}</small>
               </li>
             </ul>
           </nav>
@@ -68,16 +68,16 @@ class Navbar extends Component {
           <nav>
             <ul>
               <li>
-                <Link to="/">Inicio</Link>
+                <Link to="/">Main</Link>
               </li>
               <li>
-                <Link to="/signup">Registro</Link>
+                <Link to="/signup">Register</Link>
               </li>
               <li>
                 <Link to="/login">Login</Link>
               </li>
               <li>
-                <small>Bienvenido, invitado</small>
+                <small>Welcome to Liquid</small>
               </li>
             </ul>
           </nav>

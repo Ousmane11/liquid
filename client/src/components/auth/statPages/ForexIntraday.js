@@ -14,8 +14,16 @@ class ForexIntraday extends Component {
     this.state = { forexIntraday: [] }
   }
 
-  componentDidMount() {
-    this.services.getForexIntraday()
+  handleInputChange = e => {
+    let { name, value } = e.target
+    this.setState({
+      [name]: value
+    })
+  }
+
+  handleFormSubmit = e => {
+    e.preventDefault()
+    this.services.getForexIntraday(this.state.firstCurrency, this.state.secondCurrency)
       .then(response => {
         this.setState({ forexIntraday: response.data }, () => {
 
@@ -54,7 +62,7 @@ class ForexIntraday extends Component {
             //Creating chart instance
             let chart = am4core.create("myChart", am4charts.XYChart);
             chart.paddingRight = 20;
-
+            chart.responsive.enabled = true;
             chart.dateFormatter.inputDateFormat = "yyyy-MM-dd HH:mm:ss";
 
             let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -97,8 +105,8 @@ class ForexIntraday extends Component {
         })
       })
       .catch(err => console.log(err))
-
   }
+
 
 
 
@@ -114,6 +122,30 @@ class ForexIntraday extends Component {
     return (
       <div className='chart-container'>
         <h5>Forex Intraday</h5>
+        <form onSubmit={this.handleFormSubmit}>
+          <label>From: </label>
+          <select className='currencies' name='firstCurrency' onChange={this.handleInputChange}>
+            <option></option>
+            <option value='USD'>US Dollar</option>
+            <option value='JPY'>Japanese Yen</option>
+            <option value='EUR'>Euro</option>
+            <option value='GBP'>British Pound</option>
+            <option value='CNY'>Chinese Yuan</option>
+          </select>
+          <br></br>
+          <br></br>
+          <label>To   :</label>
+          <select className='currencies' name='secondCurrency' onChange={this.handleInputChange}>
+            <option></option>
+            <option value='USD'>US Dollar</option>
+            <option value='JPY'>Japanese Yen</option>
+            <option value='EUR'>Euro</option>
+            <option value='GBP'>British Pound</option>
+            <option value='CNY'>Chinese Yuan</option>
+
+          </select>
+          <button className='btn btn-outline-info'>Show chart</button>
+        </form>
         <div id="myChart" style={{ width: "100%", height: "500px" }}></div>
       </div>
     )
