@@ -13,7 +13,14 @@ import ForexExchange from './components/auth/statPages/ForexExRates'
 import ForexIntraday from './components/auth/statPages/ForexIntraday'
 import ProtectedRoute from './components/auth/routes/ProtectedRoute'
 import StockDaily from './components/auth/statPages/StockTsDaily'
-import SectorsPerformance from './components/auth/statPages/SectorPerformance'
+import SectorsPerformance from './components/auth/statPages/Sector Perform/SectorPerformance'
+import SectorOne from './components/auth/statPages/Sector Perform/SectorOne'
+import SectorFive from './components/auth/statPages/Sector Perform/SectorFive'
+import SectorMonth from './components/auth/statPages/Sector Perform/SectorMonth'
+import Sector3Months from './components/auth/statPages/Sector Perform/Sector3Months'
+import SectorYTD from './components/auth/statPages/Sector Perform/SectorYTD'
+import Investment from './components/auth/NewInvestment'
+import MyInvestments from './components/auth/MyInvestments'
 
 
 class App extends Component {
@@ -62,10 +69,17 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Video} />
             <ProtectedRoute exact path="/finances" user={this.state.loggedInUser} component={Finances} />
+            <ProtectedRoute exact path="/addinvestment" user={this.state.loggedInUser} component={Investment} />
+            <ProtectedRoute path="/investments/:id" user={this.state.loggedInUser} component={MyInvestments} />
             <ProtectedRoute exact path="/finances/forexrates" user={this.state.loggedInUser} component={ForexExchange} />
             <ProtectedRoute exact path="/finances/forexintraday" user={this.state.loggedInUser} component={ForexIntraday} />
             <ProtectedRoute exact path="/finances/stocktimeseries" user={this.state.loggedInUser} component={StockDaily} />
-            <ProtectedRoute exact path="/finances/sectors" user={this.state.loggedInUser} component={SectorsPerformance} />
+            <ProtectedRoute exact path="/finances/sectors/realtime" user={this.state.loggedInUser} component={SectorsPerformance} />
+            <ProtectedRoute exact path="/finances/sectors/one" user={this.state.loggedInUser} component={SectorOne} />
+            <ProtectedRoute exact path="/finances/sectors/five" user={this.state.loggedInUser} component={SectorFive} />
+            <ProtectedRoute exact path="/finances/sectors/month" user={this.state.loggedInUser} component={SectorMonth} />
+            <ProtectedRoute exact path="/finances/sectors/threemonths" user={this.state.loggedInUser} component={Sector3Months} />
+            <ProtectedRoute exact path="/finances/sectors/yeartodate" user={this.state.loggedInUser} component={SectorYTD} />
           </Switch>
         </>
       )

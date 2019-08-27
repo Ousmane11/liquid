@@ -40,10 +40,16 @@ class Navbar extends Component {
           <nav>
             <ul>
               <li>
-                <Link to="/">Main</Link>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/addinvestment">Invest</Link>
               </li>
               <li>
                 <Link to="/finances">Finance boards</Link>
+              </li>
+              <li>
+                <Link to={`/investments/${this.props.userInSession.data._id}`}>Your Assets</Link>
               </li>
               <li>
                 <button className='nav-button' onClick={this.logout}>Logout</button>

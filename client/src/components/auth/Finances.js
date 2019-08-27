@@ -24,7 +24,7 @@ class Finances extends Component {
           <div className="column">
             <h4>Sector Performance</h4>
             <p> Realtime and historical sector performances calculated<br></br> from S&P500 incumbents</p>
-            <Link to="/finances/sectors"><button className="btn btn-outline-info">Get Performance</button></Link>
+            <Link exact to="/finances/sectors/realtime"><button className="btn btn-outline-info">Get Performance</button></Link>
           </div>
           <div className="column">
             <h4>Stock Time Series Daily</h4>
