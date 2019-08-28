@@ -12,7 +12,7 @@ class SectorFive extends Component {
 
     super()
     this.services = new Services()
-    this.state = { SectorsPerformance: [] }
+    this.state = { sectorsPerformance: [] }
   }
 
 

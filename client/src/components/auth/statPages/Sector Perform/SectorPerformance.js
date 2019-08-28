@@ -12,7 +12,7 @@ class SectorsPerformance extends Component {
 
     super()
     this.services = new Services()
-    this.state = { SectorsPerformance: [] }
+    this.state = { sectorsPerformance: [] }
   }
 
 
@@ -57,11 +57,11 @@ class SectorsPerformance extends Component {
       .catch(err => console.log(err))
   }
 
-  componentWillUnmount() {
-    if (this.chart) {
-      this.chart.dispose();
-    }
-  }
+  // componentWillUnmount() {
+  //   if (this.chart) {
+  //     this.chart.dispose();
+  //   }
+  // }
 
 
   render() {

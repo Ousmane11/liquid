@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Services from '../../../../services/alpha.services'
 import { Link } from 'react-router-dom'
 
+
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-
 
 
 class SectorMonth extends Component {
@@ -12,7 +12,7 @@ class SectorMonth extends Component {
 
     super()
     this.services = new Services()
-    this.state = { SectorsPerformance: [] }
+    this.state = { sectorsPerformance: [] }
   }
 
 
@@ -20,7 +20,7 @@ class SectorMonth extends Component {
   componentDidMount() {
     this.services.getSectorPerformance()
       .then(response => this.setState({ sectorsPerformance: response.data }, () => {
-        const performanceA = this.state.sectorsPerformance["Rank B: 1 Day Performance"]
+        const performanceA = this.state.sectorsPerformance["Rank D: 1 Month Performance"]
         let chartperf = []
         for (let data in performanceA) {
           chartperf.push({ "industry": data, "value": performanceA[data] })
@@ -61,12 +61,12 @@ class SectorMonth extends Component {
     }
   }
 
-
   render() {
 
     return (
       <div className='finances-page'>
         <div id='chart-container'>
+
           <div id='myChart'>
           </div>
           <div className='perfComps'>
